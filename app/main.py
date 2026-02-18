@@ -8,8 +8,6 @@ from app.procesos.agendamiento_v2 import router as agendamiento_v2_router
 from app.procesos.liquidacion import router as liquidacion_router
 
 
-app = FastAPI(root_path="/agendamientos")
-
 # 🔹 Crear app
 app = FastAPI(title="Portal de Procesos Mexicargo")
 
