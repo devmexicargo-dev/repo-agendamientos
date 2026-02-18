@@ -3,19 +3,24 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.requests import Request
 
-from app.procesos.agendamiento import router as agendamiento_router
 from app.procesos.inventario import router as inventario_router
+from app.procesos.agendamiento_v2 import router as agendamiento_v2_router
+from app.procesos.liquidacion import router as liquidacion_router
 
-# 🔹 PRIMERO se define la app
+
+app = FastAPI(root_path="/agendamientos")
+
+# 🔹 Crear app
 app = FastAPI(title="Portal de Procesos Mexicargo")
 
 # 🔹 Templates y static
 templates = Jinja2Templates(directory="app/templates")
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-# 🔹 Routers (DESPUÉS de crear app)
-app.include_router(agendamiento_router)
+# 🔹 Routers
 app.include_router(inventario_router)
+app.include_router(agendamiento_v2_router)
+app.include_router(liquidacion_router)
 
 @app.get("/")
 async def home(request: Request):
